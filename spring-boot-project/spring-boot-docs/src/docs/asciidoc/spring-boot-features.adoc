@@ -163,7 +163,7 @@ The printed banner is registered as a singleton bean under the following name: `
 The `${application.version}` and `${application.formatted-version}` properties are only available if you are using Spring Boot launchers.
 The values won't be resolved if you are running an unpacked jar and starting it with `java -cp <classpath> <mainclass>`.
 
-This is why we recommend that you always use launch unpacked jars using `java org.springframework.boot.loader.JarLauncher`.
+This is why we recommend that you always launch unpacked jars using `java org.springframework.boot.loader.JarLauncher`.
 This will initialize the `application.*` banner variables before building the classpath and launching your app.
 ====
 
@@ -426,7 +426,7 @@ Once configured, you can record data by running the application with the Flight 
 
 Spring Boot ships with the `BufferingApplicationStartup` variant; this implementation is meant for buffering the startup steps and draining them into an external metrics system.
 Applications can ask for the bean of type `BufferingApplicationStartup` in any component.
-Additionally, Spring Boot Actuator will <<production-ready-features.adoc#production-ready-endpoints, expose a `startup` endpoint to expose this information as a JSON document>>.
+Additionally, Spring Boot Actuator will {spring-boot-actuator-restapi-docs}/#startup[expose a `startup` endpoint to expose this information as a JSON document].
 
 [[boot-features-external-config]]
 == Externalized Configuration
@@ -621,7 +621,7 @@ This might result in two separate `application.properties` files mounted at diff
 In such a case, having a wildcard location of `config/*/`, will result in both files being processed.
 
 By default, Spring Boot includes `config/*/` in the default search locations.
-The means that all subdirectories of the `/config` directory outside of your jar will be searched.
+It means that all subdirectories of the `/config` directory outside of your jar will be searched.
 
 You can use wildcard locations yourself with the `spring.config.location` and `spring.config.additional-location` properties.
 
@@ -1282,7 +1282,7 @@ The properties above will bind to a `Map` with `/key1`, `/key2` and `key3` as th
 The slash has been removed from `key3` because it wasn't surrounded by square brackets.
 
 You may also occasionally need to use the bracket notation if your `key` contains a `.` and you are binding to non-scalar value.
-For example, binding `a.b=c` to `Map<String, Object>` will return a Map with the entry `{"a"={"b"="c"}}` where as `[a.b]=c` will return a Map with the entry `{"a.b"="c"}`.
+For example, binding `a.b=c` to `Map<String, Object>` will return a Map with the entry `{"a"={"b"="c"}}` whereas `[a.b]=c` will return a Map with the entry `{"a.b"="c"}`.
 
 
 
@@ -2264,7 +2264,7 @@ If you want to take complete control of Spring MVC, you can add your own `@Confi
 [NOTE]
 ====
 Spring MVC uses a different `ConversionService` to the one used to convert values from your `application.properties` or `application.yaml` file.
-The means that `Period`, `Duration` and `DataSize` converters are not available and that `@DurationUnit` and `@DataSizeUnit` annotations will be ignored.
+It means that `Period`, `Duration` and `DataSize` converters are not available and that `@DurationUnit` and `@DataSizeUnit` annotations will be ignored.
 
 If you want to customize the `ConversionService` used by Spring MVC, you can provide a `WebMvcConfigurer` bean with an `addFormatters` method.
 From this method you can register any converter that you like, or you can delegate to the static methods available on `ApplicationConversionService`.
@@ -5416,7 +5416,7 @@ If a `DestinationResolver` or a `MessageConverter` bean is defined, it is associ
 ==== Receiving a Message
 When the JMS infrastructure is present, any bean can be annotated with `@JmsListener` to create a listener endpoint.
 If no `JmsListenerContainerFactory` has been defined, a default one is configured automatically.
-If a `DestinationResolver` or a `MessageConverter` beans is defined, it is associated automatically to the default factory.
+If a `DestinationResolver`, a `MessageConverter`, or a `javax.jms.ExceptionListener` beans are defined, they are associated automatically with the default factory.
 
 By default, the default factory is transactional.
 If you run in an infrastructure where a `JtaTransactionManager` is present, it is associated to the listener container by default.
@@ -6249,7 +6249,7 @@ The auto-configured `TaskExecutorBuilder` allows you to easily create instances 
 ====
 
 The thread pool uses 8 core threads that can grow and shrink according to the load.
-Those default settings can be fine-tuned using the `spring.task.execution` namespace as shown in the following example:
+Those default settings can be fine-tuned using the `spring.task.execution` namespace, as shown in the following example:
 
 [source,yaml,indent=0,configprops,configblocks]
 ----
@@ -6265,8 +6265,18 @@ Those default settings can be fine-tuned using the `spring.task.execution` names
 This changes the thread pool to use a bounded queue so that when the queue is full (100 tasks), the thread pool increases to maximum 16 threads.
 Shrinking of the pool is more aggressive as threads are reclaimed when they are idle for 10 seconds (rather than 60 seconds by default).
 
-A `ThreadPoolTaskScheduler` can also be auto-configured if need to be associated to scheduled task execution (`@EnableScheduling`).
-The thread pool uses one thread by default and those settings can be fine-tuned using the `spring.task.scheduling` namespace.
+A `ThreadPoolTaskScheduler` can also be auto-configured if need to be associated to scheduled task execution (e.g. `@EnableScheduling`).
+The thread pool uses one thread by default and its settings can be fine-tuned using the `spring.task.scheduling` namespace, as shown in the following example:
+
+[source,yaml,indent=0,configprops,configblocks]
+----
+	spring:
+	  task:
+	    scheduling:
+          thread-name-prefix: "scheduling-"
+	      pool:
+	        size: 2
+----
 
 Both a `TaskExecutorBuilder` bean and a `TaskSchedulerBuilder` bean are made available in the context if a custom executor or scheduler needs to be created.
 
@@ -6277,6 +6287,8 @@ Both a `TaskExecutorBuilder` bean and a `TaskSchedulerBuilder` bean are made ava
 Spring Boot offers several conveniences for working with {spring-integration}[Spring Integration], including the `spring-boot-starter-integration` "`Starter`".
 Spring Integration provides abstractions over messaging and also other transports such as HTTP, TCP, and others.
 If Spring Integration is available on your classpath, it is initialized through the `@EnableIntegration` annotation.
+
+Spring Integration polling logic relies <<boot-features-task-execution-scheduling,on the auto-configured `TaskScheduler`>>.
 
 Spring Boot also configures some features that are triggered by the presence of additional Spring Integration modules.
 If `spring-integration-jmx` is also on the classpath, message processing statistics are published over JMX.
