@@ -70,7 +70,7 @@ bom {
 			]
 		}
 	}
-	library("Artemis", "2.16.0") {
+	library("Artemis", "2.17.0") {
 		group("org.apache.activemq") {
 			modules = [
 				"artemis-amqp-protocol",
@@ -149,7 +149,7 @@ bom {
 			]
 		}
 	}
-	library("Caffeine", "2.8.8") {
+	library("Caffeine", "2.9.0") {
 		group("com.github.ben-manes.caffeine") {
 			modules = [
 				"caffeine",
@@ -270,7 +270,7 @@ bom {
 			]
 		}
 	}
-	library("Elasticsearch", "7.10.2") {
+	library("Elasticsearch", "7.11.1") {
 		group("org.elasticsearch") {
 			modules = [
 				"elasticsearch"
@@ -316,7 +316,7 @@ bom {
 			]
 		}
 	}
-	library("FreeMarker", "2.3.30") {
+	library("FreeMarker", "2.3.31") {
 		group("org.freemarker") {
 			modules = [
 				"freemarker"
@@ -437,7 +437,7 @@ bom {
 			]
 		}
 	}
-	library("HikariCP", "4.0.1") {
+	library("HikariCP", "4.0.2") {
 		group("com.zaxxer") {
 			modules = [
 				"HikariCP"
@@ -491,7 +491,7 @@ bom {
 			]
 		}
 	}
-	library("Infinispan", "12.0.0.Final") {
+	library("Infinispan", "12.0.1.Final") {
 		group("org.infinispan") {
 			imports = [
 				"infinispan-bom"
@@ -950,7 +950,7 @@ bom {
 			]
 		}
 	}
-	library("JUnit", "4.13.1") {
+	library("JUnit", "4.13.2") {
 		group("junit") {
 			modules = [
 				"junit"
@@ -1002,14 +1002,14 @@ bom {
 			]
 		}
 	}
-	library("Lettuce", "6.0.2.RELEASE") {
+	library("Lettuce", "6.1.0.M1") {
 		group("io.lettuce") {
 			modules = [
 				"lettuce-core"
 			]
 		}
 	}
-	library("Liquibase", "4.3.0") {
+	library("Liquibase", "4.3.1") {
 		group("org.liquibase") {
 			modules = [
 				"liquibase-core"
@@ -1178,7 +1178,7 @@ bom {
 			]
 		}
 	}
-	library("Micrometer", "1.6.3") {
+	library("Micrometer", "1.6.4") {
 		group("io.micrometer") {
 			modules = [
 				"micrometer-registry-stackdriver" {
@@ -1206,7 +1206,7 @@ bom {
 			]
 		}
 	}
-	library("MongoDB", "4.1.1") {
+	library("MongoDB", "4.2.0-beta1") {
 		group("org.mongodb") {
 			modules = [
 				"bson",
@@ -1429,7 +1429,7 @@ bom {
 			]
 		}
 	}
-	library("RxJava2", "2.2.20") {
+	library("RxJava2", "2.2.21") {
 		group("io.reactivex.rxjava2") {
 			modules = [
 				"rxjava"
@@ -1601,7 +1601,7 @@ bom {
 			]
 		}
 	}
-	library("Spring AMQP", "2.3.4") {
+	library("Spring AMQP", "2.3.5") {
 		group("org.springframework.amqp") {
 			modules = [
 				"spring-amqp",
@@ -1621,7 +1621,7 @@ bom {
 			]
 		}
 	}
-	library("Spring Data Bom", "2021.0.0-SNAPSHOT") {
+	library("Spring Data Bom", "2021.0.0-M4") {
 		group("org.springframework.data") {
 			imports = [
 				"spring-data-bom"
@@ -1642,14 +1642,14 @@ bom {
 			]
 		}
 	}
-	library("Spring Integration", "5.5.0-SNAPSHOT") {
+	library("Spring Integration", "5.5.0-M2") {
 		group("org.springframework.integration") {
 			imports = [
 				"spring-integration-bom"
 			]
 		}
 	}
-	library("Spring Kafka", "2.7.0-SNAPSHOT") {
+	library("Spring Kafka", "2.7.0-M2") {
 		group("org.springframework.kafka") {
 			modules = [
 				"spring-kafka",

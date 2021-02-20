@@ -451,7 +451,8 @@ The following Maven example shows how to exclude Tomcat and include Jetty for Sp
 	</dependency>
 ----
 
-NOTE: The version of the Servlet API has been overridden as, unlike Tomcat 9 and Undertow 2.0, Jetty 9.4 does not support Servlet 4.0.
+NOTE: The version of the Servlet API has been overridden as, unlike Tomcat 9 and Undertow 2, Jetty 9.4 does not support Servlet 4.0.
+If you wish to use Jetty 10, which does support Servlet 4.0, override the `jetty.version` property rather than the `servlet-api.version` property.
 
 The following Gradle example shows how to use Undertow in place of Reactor Netty for Spring WebFlux:
 
@@ -2029,6 +2030,11 @@ In addition, Spring Boot processes the `schema-$\{platform}.sql` and `data-$\{pl
 This allows you to switch to database-specific scripts if necessary.
 For example, you might choose to set it to the vendor name of the database (`hsqldb`, `h2`, `oracle`, `mysql`, `postgresql`, and so on).
 
+By default, script-based `DataSource` initialization is performed before any JPA `EntityManagerFactory` beans are created.
+`schema.sql` can be used to create the schema for JPA-managed entities and `data.sql` can be used to populate it.
+If you want script-based `DataSource` initialization to be performed after the `EntityManagerFactory`, set `spring.datasource.initialization-order` to `after-jpa`.
+`schema.sql` can then be used to make additions to any schema creation performed by Hibernate and `data.sql` can be used to populate it.
+
 [NOTE]
 ====
 When only basic SQL scripts are used, Spring Boot automatically creates the schema of an embedded `DataSource`.
@@ -2087,10 +2093,11 @@ You can also enable it for any database type, as shown in the following example:
 ----
 	spring:
 	  batch:
-	    initialize-schema: "always"
+	    jdbc:
+	      initialize-schema: "always"
 ----
 
-You can also switch off the initialization explicitly by setting `spring.batch.initialize-schema` to `never`.
+You can also switch off the initialization explicitly by setting `spring.batch.jdbc.initialize-schema` to `never`.
 
 
 
